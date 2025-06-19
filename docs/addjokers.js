@@ -178,6 +178,18 @@ let jokers = [
       "img/j_hiker.png",
       "img/j_dusk.png"
     ]
+  },
+  {
+    name: "Photochad",
+    text: [
+      "First scoring card gives {X:mult,C:white} X2{} Mult and trigger {C:attention}2{} additional times"
+    ],
+    image_url: "img/j_photochad.png",
+    rarity: "Fusion",
+    fusion_jokers: [
+      "img/j_photograph.png",
+      "img/j_hanging_chad.png",
+    ]
   }
 ]
 

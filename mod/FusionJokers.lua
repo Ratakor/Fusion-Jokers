@@ -61,30 +61,34 @@ FusionJokers.fusions = {
 		{ name = "j_ride_the_bus", carry_stat = nil, extra_stat = false },
 		{ name = "j_drivers_license", carry_stat = nil, extra_stat = false }
 	}, result_joker = "j_fuse_commercial_driver", cost = 8 },
-  { jokers = {
+	{ jokers = {
 		{ name = "j_hiker", carry_stat = nil, extra_stat = false },
 		{ name = "j_dusk", carry_stat = nil, extra_stat = false }
 	}, result_joker = "j_fuse_camping_trip", cost = 10 },
+	{ jokers = {
+		{ name = "j_photograph", carry_stat = nil, extra_stat = false },
+		{ name = "j_hanging_chad", carry_stat = nil, extra_stat = false }
+	}, result_joker = "j_fuse_photochad", cost = 10 },
 }
 
 FusionJokers.fusionconfig = SMODS.current_mod.config
 SMODS.load_file('configui.lua')()
 
 for _, fusion in ipairs(FusionJokers.fusions) do
-    local fused = fusion.result_joker
+	local fused = fusion.result_joker
 
-    for _, component in ipairs(fusion.jokers) do
-        local component_name = component.name
+	for _, component in ipairs(fusion.jokers) do
+		local component_name = component.name
 
-        SMODS.Joker:take_ownership(component_name, {
-            in_pool = function(self, args)
-                if #SMODS.find_card('j_showman') > 0 then return true end -- Allow finding copies if Showman is present
+		SMODS.Joker:take_ownership(component_name, {
+			in_pool = function(self, args)
+				if #SMODS.find_card('j_showman') > 0 then return true end -- Allow finding copies if Showman is present
 				if not FusionJokers.fusionconfig.block_components then return true end --If the option is disabled, don't do the check
-                if #SMODS.find_card(fused) > 0 then return false end -- If the fused Joker exists, remove both components
-                return true
-            end
-        }, true) -- silent | suppresses mod badge
-    end
+				if #SMODS.find_card(fused) > 0 then return false end -- If the fused Joker exists, remove both components
+				return true
+			end
+		}, true) -- silent | suppresses mod badge
+	end
 end
 
 
@@ -133,6 +137,7 @@ SMODS.load_file('jokers/flagbearer.lua')()
 SMODS.load_file('jokers/uncannyface.lua')()
 SMODS.load_file('jokers/commercialdriver.lua')()
 SMODS.load_file('jokers/campingtrip.lua')()
+SMODS.load_file('jokers/photochad.lua')()
 
 to_number = to_number or function(num)
 	return num
@@ -190,18 +195,18 @@ function Card:get_card_fusion()
 			end
 		end
 	end
-    return nil
+	return nil
 end
 
 
 function Card:fuse_card()
 	G.CONTROLLER.locks.selling_card = true
-    stop_use()
-    local area = self.area
-    G.CONTROLLER:save_cardarea_focus('jokers')
+	stop_use()
+	local area = self.area
+	G.CONTROLLER:save_cardarea_focus('jokers')
 
-    if self.children.use_button then self.children.use_button:remove(); self.children.use_button = nil end
-    if self.children.sell_button then self.children.sell_button:remove(); self.children.sell_button = nil end
+	if self.children.use_button then self.children.use_button:remove(); self.children.use_button = nil end
+	if self.children.sell_button then self.children.sell_button:remove(); self.children.sell_button = nil end
 
 	local my_pos = has_joker(self.config.center_key)
 
@@ -337,18 +342,18 @@ function Card:fuse_card()
 end
 
 G.FUNCS.fuse_card = function(e)
-    local card = e.config.ref_table
-    card:fuse_card()
+	local card = e.config.ref_table
+	card:fuse_card()
 end
 
 G.FUNCS.can_fuse_card = function(e)
-    if e.config.ref_table:can_fuse_card() then
-        e.config.colour = G.C.DARK_EDITION
-        e.config.button = 'fuse_card'
-    else
-      	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-      	e.config.button = nil
-    end
+	if e.config.ref_table:can_fuse_card() then
+		e.config.colour = G.C.DARK_EDITION
+		e.config.button = 'fuse_card'
+	else
+	  	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+	  	e.config.button = nil
+	end
   end
 
 
@@ -385,8 +390,8 @@ end
 
 local card_h_popupref = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
-    local retval = card_h_popupref(card)
-    if not card.config.center or -- no center
+	local retval = card_h_popupref(card)
+	if not card.config.center or -- no center
 	(card.config.center.unlocked == false and not card.bypass_lock) or -- locked card
 	card.debuff or -- debuffed card
 	(not card.config.center.discovered and ((card.area ~= G.jokers and card.area ~= G.consumeables and card.area) or not card.area)) -- undiscovered card
@@ -430,16 +435,16 @@ end
 -- local shatterref = Card.shatter
 -- function Card:shatter()
 -- 	G.E_MANAGER:add_event(Event({
---         trigger = 'before',
---         blockable = false,
---         func = (function() 
+--		 trigger = 'before',
+--		 blockable = false,
+--		 func = (function() 
 -- 			if (self.ability.name == 'Glass Card') and find_joker("Moon Marauder") then
 -- 				local _card = copy_card(self, nil, nil, G.playing_card)
 -- 				_card:add_to_deck()
 -- 				table.insert(G.playing_cards, _card)
 -- 			end
 -- 		return true end)
---     }))
+--	 }))
 
 -- 	shatterref(self)
 
