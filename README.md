@@ -15,7 +15,7 @@
 ---
 
 <p align="center"> All new special combinations of jokers!
-    <br> 
+    <br>
 </p>
 
 ## 📝 Table of Contents
@@ -30,13 +30,13 @@
 
 **Fusion Jokers** is a mod that allows players to combine jokers into special powerful new **Fusion Jokers**!
 
-When you have a fusable joker, pressing on it will show a **"fuse" button**. When you have the correct jokers, and enough money, you can combine the jokers into a powerful **Fusion**! 
+When you have a fusable joker, pressing on it will show a **"fuse" button**. When you have the correct jokers, and enough money, you can combine the jokers into a powerful **Fusion**!
 
 <img width=500px src="art/jokers_tab.png?raw=true" alt="Showcase of jokers tab 5"></a>
 
 There are a total of 15 fusions added in the mod!
 
-You can find a list of their abilities, as well as the jokers needed to make them, in this link: https://itayfeder.github.io/Fusion-Jokers/
+You can find a list of their abilities, as well as the jokers needed to make them, in this link: https://ratakor.github.io/Fusion-Jokers/
 
 ## ⬇ How to Download <a name = "how_to_download"></a>
 
@@ -62,7 +62,7 @@ FusionJokers.fusions:add_fusion(
   joker2,       --
   carry_stat2,  -- same as 1, but for the other component joker
   extra2,       --
-  result_joker, --result of fusion 
+  result_joker, --result of fusion
   cost,         --cost to fuse
   merged_stat, merge_stat1, merge_stat2, merge_extra --TODO explain these
 )
